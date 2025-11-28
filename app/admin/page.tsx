@@ -4,6 +4,8 @@ import { getQuota } from '@/lib/store';
 import { getSessionFromCookies } from '@/lib/session';
 import AdminClient, { type AdminUser } from '@/components/AdminClient';
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminPage() {
   const session = await getSessionFromCookies();
   if (!session) {

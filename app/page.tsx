@@ -4,6 +4,8 @@ import { listEvents, listFiles, getQuota } from '@/lib/store';
 import { getSessionFromCookies } from '@/lib/session';
 import HomeClient from '@/components/HomeClient';
 
+export const dynamic = 'force-dynamic';
+
 export default async function HomePage() {
   const session = await getSessionFromCookies();
   if (!session) {
