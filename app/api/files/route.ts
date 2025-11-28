@@ -4,6 +4,7 @@ export const runtime = 'nodejs';
 import { NextResponse, type NextRequest } from 'next/server';
 import Busboy from 'busboy';
 import { PassThrough, Readable, type Writable } from 'node:stream';
+import type { ReadableStream as WebReadableStream } from 'node:stream/web';
 import type { R1FSUploadResponse } from '@ratio1/edge-sdk-ts';
 import { getServerEnv } from '@/lib/env';
 import { requireSession } from '@/lib/session';
@@ -138,7 +139,7 @@ async function streamUploadToR1FS(request: NextRequest, opts: {
       } else if (typeof (body as { pipe?: unknown }).pipe === 'function') {
         (body as unknown as Readable).pipe(busboy as unknown as Writable);
       } else {
-        const nodeStream = Readable.fromWeb(body as unknown as globalThis.ReadableStream);
+        const nodeStream = Readable.fromWeb(body as WebReadableStream);
         nodeStream.on('error', fail);
         nodeStream.pipe(busboy as unknown as Writable);
       }

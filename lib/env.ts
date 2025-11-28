@@ -28,7 +28,7 @@ function parseIntEnv(value: string | undefined, fallback: number): number {
   return Number.isNaN(parsed) ? fallback : parsed;
 }
 
-export function getServerEnv(env: ProcessEnv = process.env): ServerEnv {
+export function getServerEnv(env: NodeJS.ProcessEnv = process.env): ServerEnv {
   const missing = REQUIRED_ENV.filter((key) => !env[key]);
   if (missing.length) {
     throw new Error(`Missing required environment variables: ${missing.join(', ')}`);
@@ -48,4 +48,3 @@ export function getServerEnv(env: ProcessEnv = process.env): ServerEnv {
     allowedMimeTypes: ['image/png', 'image/jpeg', 'image/tiff']
   };
 }
-import type { ProcessEnv } from 'node:process';

@@ -5,6 +5,10 @@ const nextConfig = {
     serverActions: {
       bodySizeLimit: '10mb'
     }
+  },
+  eslint: {
+    // Skip ESLint during build; run separately via `npm run lint`
+    ignoreDuringBuilds: true
   }
 };
 

@@ -1,6 +1,11 @@
 import type { PublicUser, UserRole } from '@ratio1/cstore-auth-ts';
-import { cookies as nextCookies, type RequestCookies } from 'next/headers';
+import { cookies as nextCookies } from 'next/headers';
 import { NextResponse } from 'next/server';
+
+/** Minimal interface for cookie stores - works with both middleware RequestCookies and next/headers cookies() */
+type CookieStore = {
+  get(name: string): { name: string; value: string } | undefined;
+};
 import { getServerEnv } from './env';
 
 export type SessionPayload = {
@@ -88,7 +93,7 @@ export async function createSession(user: PublicUser): Promise<string> {
   return encode(payload);
 }
 
-export async function getSessionFromCookies(jar?: RequestCookies): Promise<SessionPayload | null> {
+export async function getSessionFromCookies(jar?: CookieStore): Promise<SessionPayload | null> {
   const env = getServerEnv();
   const store = jar ?? (await nextCookies());
   const cookie = store.get(env.sessionCookieName);
@@ -122,7 +127,7 @@ export function clearSessionCookie(res: NextResponse) {
   });
 }
 
-export async function requireSession(jar?: RequestCookies): Promise<SessionPayload> {
+export async function requireSession(jar?: CookieStore): Promise<SessionPayload> {
   const session = await getSessionFromCookies(jar);
   if (!session) {
     throw new Error('UNAUTHENTICATED');
@@ -130,7 +135,7 @@ export async function requireSession(jar?: RequestCookies): Promise<SessionPaylo
   return session;
 }
 
-export async function requireAdmin(jar?: RequestCookies): Promise<SessionPayload> {
+export async function requireAdmin(jar?: CookieStore): Promise<SessionPayload> {
   const session = await requireSession(jar);
   if (session.role !== 'admin') {
     throw new Error('FORBIDDEN');
