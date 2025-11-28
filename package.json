@@ -1,0 +1,45 @@
+{
+  "name": "guacamole",
+  "version": "0.1.0",
+  "description": "Minimal Ratio1 image sharing app using edge-sdk-ts and cstore-auth-ts",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint . --max-warnings=0",
+    "sandbox": "node scripts/sandbox.mjs",
+    "test": "echo \"No automated tests yet\""
+  },
+  "keywords": [
+    "ratio1",
+    "nextjs",
+    "r1fs",
+    "cstore"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@ratio1/cstore-auth-ts": "^0.6.0",
+    "@ratio1/edge-sdk-ts": "^1.4.0",
+    "busboy": "^1.6.0",
+    "cross-fetch": "^4.1.0",
+    "form-data": "^4.0.5",
+    "formdata-node": "^6.0.3",
+    "next": "^15.5.6",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@next/eslint-plugin-next": "^16.0.5",
+    "@types/node": "^22.7.4",
+    "@types/react": "^18.3.11",
+    "@types/react-dom": "^18.3.0",
+    "@typescript-eslint/eslint-plugin": "^8.48.0",
+    "@typescript-eslint/parser": "^8.48.0",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^15.5.6",
+    "typescript": "^5.6.3"
+  }
+}
